@@ -7,7 +7,10 @@
       outlined
       tile
     >
-      {{ item.txt }}
+      {{ item.name }}
+      {{ item.phone }}
+      {{ item.address }}
+      {{ item.postcode }}
     </v-card>
   </v-card>
 </template>
