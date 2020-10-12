@@ -30,8 +30,9 @@
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn class="ma-1" color="#F4D03F" to="/">
-        Search<span class="mdi mdi-magnify mdi-18px"></span
-      ></v-btn>
+        Search
+        <v-icon right dark>mdi mdi-magnify mdi-18px</v-icon></v-btn
+      >
       <v-btn class="ma-1" color="#F4D03F" to="/track">Track</v-btn>
       <v-btn class="ma-1" color="#F4D03F" to="/Contact">Contact</v-btn>
       <v-btn class="ma-1" color="#F4D03F" to="/login">Login</v-btn>

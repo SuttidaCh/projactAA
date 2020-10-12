@@ -8,6 +8,15 @@
       </v-col>
     </v-row>
     <br />
+    <v-carousel v-model="model" cycle :show-arrows="false">
+      <v-carousel-item v-for="(slide, i) in slides" :key="i">
+        <v-sheet :color="colors[i]" height="100%">
+          <v-row class="fill-height" align="center" justify="center">
+            <div class="display-3">Hello {{ slide }}</div>
+          </v-row>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
     <div class="container">
       <div class="text-center">
         <h2 class="section-heading">Services</h2>
@@ -31,5 +40,42 @@
   </div>
 </template>
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      colors: [
+        '#FFD54F',
+        '#F8BBD0',
+        '#81C784',
+        '#E59866',
+        '#85C1E9',
+        '#D2B4DE',
+        '#E57373',
+      ],
+      slides: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+      ],
+      items: [
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+        },
+      ],
+    }
+  },
+}
 </script>
