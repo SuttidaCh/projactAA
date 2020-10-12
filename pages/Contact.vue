@@ -56,7 +56,7 @@
         <v-btn
           id="sendMessageButton"
           color="#F4D03F"
-          class="btn btn-primary btn-xl text-uppercase"
+          class="mr-4"
           type="submit"
         >
           Send Message

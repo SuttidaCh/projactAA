@@ -32,9 +32,9 @@
       <v-btn class="ma-1" color="#F4D03F" to="/">
         Search<span class="mdi mdi-magnify mdi-18px"></span
       ></v-btn>
-      <v-btn class="ma-1" color="#F4D03F" to="/">Track</v-btn>
-      <v-btn class="ma-1" color="#F4D03F" to="/">Contact</v-btn>
-      <v-btn class="ma-1" color="#F4D03F" to="/">Login</v-btn>
+      <v-btn class="ma-1" color="#F4D03F" to="/track">Track</v-btn>
+      <v-btn class="ma-1" color="#F4D03F" to="/Contact">Contact</v-btn>
+      <v-btn class="ma-1" color="#F4D03F" to="/login">Login</v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -62,6 +62,11 @@ export default {
           to: '/',
         },
         {
+          icon: 'mdi-qrcode-scan',
+          title: 'Tracking Number',
+          to: '/track',
+        },
+        {
           icon: 'mdi-account',
           title: 'Customer information',
           to: '/customer',
@@ -70,6 +75,11 @@ export default {
           icon: 'mdi-comment',
           title: 'Contact Us',
           to: '/contact',
+        },
+        {
+          icon: 'mdi-barcode-scan',
+          title: 'Update Status',
+          to: '/update',
         },
       ],
       miniVariant: false,
