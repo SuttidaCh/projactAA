@@ -29,13 +29,13 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn class="ma-1" color="#F4D03F" to="/">
+      <v-btn class="ma-1 col-" color="#F4D03F" to="/">
         Search
         <v-icon right dark>mdi mdi-magnify mdi-18px</v-icon></v-btn
       >
-      <v-btn class="ma-1" color="#F4D03F" to="/track">Track</v-btn>
-      <v-btn class="ma-1" color="#F4D03F" to="/Contact">Contact</v-btn>
-      <v-btn class="ma-1" color="#F4D03F" to="/login">Login</v-btn>
+      <v-btn class="ma-1 col-" color="#F4D03F" to="/track">Track</v-btn>
+      <v-btn class="ma-1 col-" color="#F4D03F" to="/Contact">Contact</v-btn>
+      <v-btn class="ma-1 col-" color="#F4D03F" to="/login">Login</v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
