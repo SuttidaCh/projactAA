@@ -9,12 +9,17 @@
     >
       {{ item.name }}
       {{ item.phone }}
+      {{ item.address }}
+      {{ item.district }}
+      {{ item.province }}
+      {{ item.postcode }}
     </v-card>
   </v-card>
 </template>
 
 <script>
 import { db } from '~/plugins/firebaseConfig.js'
+
 export default {
   data() {
     return {

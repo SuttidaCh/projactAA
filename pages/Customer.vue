@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form ref="form" @submit.prevent="addData">
+    <v-form ref="form" v-model="valid" @submit.prevent="addData">
       <h1>ข้อมูลลูกค้า</h1>
       <br />
       <div class="row md-5">
@@ -73,19 +73,19 @@
         </v-col>
         <v-col cols="12" md="4">
           <div>ขนาดกล่อง</div>
-          <v-radio-group v-model="sizebox" :size="size" row>
-            <v-radio :label="`S`" required></v-radio>
-            <v-radio :label="`M`" required></v-radio>
-            <v-radio :label="`L`" required></v-radio>
-            <v-radio :label="`XL`" required></v-radio>
+          <v-radio-group v-model="sizebox" required row>
+            <v-radio :label="`S`" :value="S" required></v-radio>
+            <v-radio :label="`M`" :value="M" required></v-radio>
+            <v-radio :label="`L`" :value="L" required></v-radio>
+            <v-radio :label="`XL`" :value="XL" required></v-radio>
           </v-radio-group>
         </v-col>
       </v-row>
       <br />
-
       <v-dialog v-model="dialog" persistent max-width="290">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
+            :disabled="!valid"
             color="#7B7D7D"
             v-bind="attrs"
             class="mr-2"
@@ -106,7 +106,8 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn color="#F4D03F" class="mr-2" @click="reset"> Reset Form </v-btn>
+      <v-btn color="#7B7D7D" class="mr-4" @click="addData">Submit</v-btn>
+      <v-btn color="#F4D03F" class="mr-4" @click="reset"> Reset Form </v-btn>
     </v-form>
   </v-container>
 </template>
@@ -117,6 +118,7 @@ import { db } from '~/plugins/firebaseConfig.js'
 export default {
   data() {
     return {
+      valid: true,
       name: '',
       nameRules: [(v) => !!v || 'Name is required'],
       phone: '',
@@ -134,11 +136,11 @@ export default {
       postcodeRules: [
         (v) => !!v || 'Post code is required',
         (v) =>
-          (v && v.length <= 5) || 'Post code must be less than 10 characters',
+          (v && v.length <= 5) || 'Post code must be less than 5 characters',
       ],
       area: null,
       sizebox: null,
-      size: ['S', 'M', 'L', 'XL'],
+      value: '',
       quantity: null,
       items: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
       dialog: false,
@@ -156,8 +158,6 @@ export default {
             this.name = firebaseData.name
             this.phone = firebaseData.phone
             this.address = firebaseData.address
-            this.district = firebaseData.district
-            this.province = firebaseData.province
             this.postcode = firebaseData.postcode
             this.area = firebaseData.area
             this.sizebox = firebaseData.sizebox
@@ -190,16 +190,16 @@ export default {
 
       // เก็บข้อมูล Input Text ใน collection MyText (มีหลาย document ข้อมูลจะเพิ่มขึ้นเรื่อย ๆ )แสดงผลออกมาที่ด้านนนอก
       const dataText = {
-        Name: this.name,
-        Phone: this.phone,
-        Address: this.address,
-        District: this.district,
-        Province: this.province,
-        Postcode: this.postcode,
-        Area: this.area,
-        Sizebox: this.sizebox,
-        Quantity: this.quantity,
-        Timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        name: this.name,
+        phone: this.phone,
+        address: this.address,
+        district: this.district,
+        province: this.province,
+        postcode: this.postcode,
+        area: this.area,
+        sizebox: this.sizebox,
+        quantity: this.quantity,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
       db.collection('Customer')
         .doc()
@@ -207,6 +207,9 @@ export default {
         .then(function () {
           console.log('Document successfully written! -> Customer')
         })
+    },
+    Submit() {
+      this.$refs.form.Submit()
     },
     reset() {
       this.$refs.form.reset()
