@@ -106,7 +106,6 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn color="#7B7D7D" class="mr-4" @click="addData">Submit</v-btn>
       <v-btn color="#F4D03F" class="mr-4" @click="reset"> Reset Form </v-btn>
     </v-form>
   </v-container>
