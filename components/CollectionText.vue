@@ -9,15 +9,12 @@
     >
       {{ item.name }}
       {{ item.phone }}
-      {{ item.address }}
-      {{ item.postcode }}
     </v-card>
   </v-card>
 </template>
 
 <script>
 import { db } from '~/plugins/firebaseConfig.js'
-
 export default {
   data() {
     return {
@@ -29,7 +26,7 @@ export default {
   },
   methods: {
     getData() {
-      db.collection('MyText')
+      db.collection('Customer')
         .orderBy('timestamp')
         .onSnapshot((querySnapshot) => {
           const data = []

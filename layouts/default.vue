@@ -34,7 +34,6 @@
         <v-icon right dark>mdi mdi-magnify mdi-18px</v-icon></v-btn
       >
       <v-btn class="ma-1 col-" color="#F4D03F" to="/track">Track</v-btn>
-      <v-btn class="ma-1 col-" color="#F4D03F" to="/Contact">Contact</v-btn>
       <v-btn class="ma-1 col-" color="#F4D03F" to="/login">Login</v-btn>
     </v-app-bar>
     <v-main>
@@ -73,14 +72,19 @@ export default {
           to: '/customer',
         },
         {
-          icon: 'mdi-comment',
-          title: 'Contact Us',
-          to: '/contact',
+          icon: 'mdi-account',
+          title: 'List Data',
+          to: '/listdata',
         },
         {
           icon: 'mdi-barcode-scan',
           title: 'Update Status',
           to: '/update',
+        },
+        {
+          icon: 'mdi-comment',
+          title: 'Contact Us',
+          to: '/contact',
         },
       ],
       miniVariant: false,

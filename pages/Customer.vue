@@ -30,6 +30,22 @@
       </div>
       <div class="row md-5">
         <v-text-field
+          v-model="district"
+          :rules="districtRules"
+          label="อำเภอ"
+          class="ma-3"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="province"
+          :rules="provinceRules"
+          label="จังหวัด"
+          class="ma-3"
+          required
+        ></v-text-field>
+      </div>
+      <div class="row md-5">
+        <v-text-field
           v-model="postcode"
           :rules="postcodeRules"
           label="รหัสไปรษณีย์"
@@ -44,29 +60,61 @@
         <v-radio :label="`ต่างจังหวัด`" :value="t2" required></v-radio>
       </v-radio-group>
       <br />
-      <div>ขนาดกล่อง</div>
-      <v-radio-group v-model="box" row>
-        <v-radio :label="`S`" :value="S" required></v-radio>
-        <v-radio :label="`M`" :value="M" required></v-radio>
-        <v-radio :label="`L`" :value="L" required></v-radio>
-        <v-radio :label="`XL`" :value="XL" required></v-radio>
-      </v-radio-group>
+      <v-row justify="space-between">
+        <v-col cols="12" md="5">
+          <div>จำนวนกล่อง</div>
+          <v-select
+            v-model="quantity"
+            :items="items"
+            :rules="[(v) => !!v || 'Item is required']"
+            label="จำนวนกล่อง"
+            required
+          ></v-select>
+        </v-col>
+        <v-col cols="12" md="4">
+          <div>ขนาดกล่อง</div>
+          <v-radio-group v-model="sizebox" :size="size" row>
+            <v-radio :label="`S`" required></v-radio>
+            <v-radio :label="`M`" required></v-radio>
+            <v-radio :label="`L`" required></v-radio>
+            <v-radio :label="`XL`" required></v-radio>
+          </v-radio-group>
+        </v-col>
+      </v-row>
       <br />
-      <v-btn color="#7B7D7D" class="mr-4" @click="addData">Submit</v-btn>
-      <v-btn color="#F4D03F" class="mr-4" @click="reset"> Reset Form </v-btn>
+
+      <v-dialog v-model="dialog" persistent max-width="290">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="#7B7D7D"
+            v-bind="attrs"
+            class="mr-2"
+            @click="addData"
+            v-on="on"
+          >
+            Submit
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-title class="headline"> ยืนยันสำเร็จ </v-card-title>
+          <v-card-text>บันทึกข้อมูลเรียบร้อย</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" text @click="dialog = false">
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-btn color="#F4D03F" class="mr-2" @click="reset"> Reset Form </v-btn>
     </v-form>
-    <CollectionText />
   </v-container>
 </template>
 
 <script>
 import firebase from 'firebase/app'
 import { db } from '~/plugins/firebaseConfig.js'
-import CollectionText from '~/components/CollectionText.vue'
 export default {
-  components: {
-    CollectionText,
-  },
   data() {
     return {
       name: '',
@@ -78,6 +126,10 @@ export default {
       ],
       address: '',
       addressRules: [(v) => !!v || 'Address is required'],
+      district: '',
+      districtRules: [(v) => !!v || 'District is required'],
+      province: '',
+      provinceRules: [(v) => !!v || 'Province is required'],
       postcode: '',
       postcodeRules: [
         (v) => !!v || 'Post code is required',
@@ -85,7 +137,11 @@ export default {
           (v && v.length <= 5) || 'Post code must be less than 10 characters',
       ],
       area: null,
-      box: null,
+      sizebox: null,
+      size: ['S', 'M', 'L', 'XL'],
+      quantity: null,
+      items: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+      dialog: false,
     }
   },
 
@@ -100,9 +156,12 @@ export default {
             this.name = firebaseData.name
             this.phone = firebaseData.phone
             this.address = firebaseData.address
+            this.district = firebaseData.district
+            this.province = firebaseData.province
             this.postcode = firebaseData.postcode
             this.area = firebaseData.area
-            this.box = firebaseData.box
+            this.sizebox = firebaseData.sizebox
+            this.quantity = firebaseData.quantity
           }
         })
     },
@@ -116,7 +175,7 @@ export default {
         phone: this.phone,
         postcode: this.postcode,
         area: this.area,
-        box: this.box,
+        sizebox: this.sizebox,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
       db.collection('MyForm')
@@ -131,17 +190,22 @@ export default {
 
       // เก็บข้อมูล Input Text ใน collection MyText (มีหลาย document ข้อมูลจะเพิ่มขึ้นเรื่อย ๆ )แสดงผลออกมาที่ด้านนนอก
       const dataText = {
-        name: this.name,
-        phone: this.phone,
-        address: this.address,
-        postcode: this.postcode,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        Name: this.name,
+        Phone: this.phone,
+        Address: this.address,
+        District: this.district,
+        Province: this.province,
+        Postcode: this.postcode,
+        Area: this.area,
+        Sizebox: this.sizebox,
+        Quantity: this.quantity,
+        Timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
-      db.collection('MyText')
+      db.collection('Customer')
         .doc()
         .set(dataText)
         .then(function () {
-          console.log('Document successfully written! -> MyText')
+          console.log('Document successfully written! -> Customer')
         })
     },
     reset() {
