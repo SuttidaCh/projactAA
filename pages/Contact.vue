@@ -41,13 +41,13 @@
         </div>
         <div class="col-md-6">
           <div class="form-group form-group-textarea mb-md-0">
-            <v-text-field
+            <v-textarea
               id="message"
               class="form-control"
               placeholder="ข้อความติดต่อ"
               required
               data-validation-required-message="Please enter a message."
-            ></v-text-field>
+            ></v-textarea>
             <p class="help-block text-danger"></p>
           </div>
         </div>

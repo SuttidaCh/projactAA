@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-form ref="form" v-model="valid" @submit.prevent="addData">
-      <h1>ข้อมูลลูกค้า</h1>
+      <h1>ชำระค่าบริการ</h1>
       <br />
       <div class="row md-5">
         <v-text-field

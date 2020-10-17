@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      ข้อมูลลูกค้า
+      รายงานสรุปบัญชีรายรับ
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -25,15 +25,11 @@ export default {
     return {
       search: '',
       headers: [
-        { text: 'หมายเลขติดตามพัสดุ', value: 'tracking' },
+        { text: 'เลขที่ใบเสร็จ', value: 'receipt' },
         { text: 'ชื่อ-สกุล', value: 'name' },
-        { text: 'วันที่รับ', value: 'date' },
-        { text: 'ที่อยู่', value: 'address' },
-        { text: 'อำเภอ', value: 'district' },
-        { text: 'จังหวัด', value: 'district' },
-        { text: 'รหัสไปรษณีย์', value: 'postcode' },
-        { text: 'สถานะ', value: 'status' },
-        { text: 'รวมเป็นเงิน', value: 'total' },
+        { text: 'วันที่ทำรายการ', value: 'date' },
+        { text: 'จำนวนเงินทั้งหมด', value: 'total' },
+        { text: 'ยอดการบริการ', value: 'service' },
       ],
       textList: [],
     }
