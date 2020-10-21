@@ -145,7 +145,14 @@ export default {
       dialog: false,
     }
   },
-
+  beforeCreate() {
+    if (!firebase.auth().currentUser) {
+      console.log('No Login')
+      this.$router.replace('/login')
+    } else {
+      console.log('Login ok')
+    }
+  },
   methods: {
     getData() {
       db.collection('MyForm')

@@ -30,7 +30,7 @@ export default {
         { text: 'วันที่รับ', value: 'date' },
         { text: 'ที่อยู่', value: 'address' },
         { text: 'อำเภอ', value: 'district' },
-        { text: 'จังหวัด', value: 'district' },
+        { text: 'จังหวัด', value: 'province' },
         { text: 'รหัสไปรษณีย์', value: 'postcode' },
         { text: 'สถานะ', value: 'status' },
         { text: 'รวมเป็นเงิน', value: 'total' },

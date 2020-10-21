@@ -16,13 +16,14 @@
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field
-                      v-model="editedItem.status"
-                      label="Calories"
+                      v-model="editedItem.name"
+                      label="Status"
                     ></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
+
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
@@ -53,9 +54,6 @@
       <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize"> Reset </v-btn>
-    </template>
   </v-data-table>
 </template>
 <script>
@@ -75,7 +73,7 @@ export default {
       { text: 'วันที่รับ', value: 'date' },
       { text: 'ที่อยู่', value: 'address' },
       { text: 'อำเภอ', value: 'district' },
-      { text: 'จังหวัด', value: 'district' },
+      { text: 'จังหวัด', value: 'province' },
       { text: 'รหัสไปรษณีย์', value: 'postcode' },
       { text: 'ติดต่อ', value: 'phone' },
       { text: 'สถานะ', value: 'status' },
@@ -84,10 +82,10 @@ export default {
     textList: [],
     editedIndex: -1,
     editedItem: {
-      status: '',
+      name: '',
     },
     defaultItem: {
-      status: '',
+      name: '',
     },
   }),
 
