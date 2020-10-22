@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import firebase from 'firebase/app'
 import { db } from '~/plugins/firebaseConfig.js'
 
 export default {
@@ -28,6 +29,14 @@ export default {
   },
   created() {
     this.getData()
+  },
+  beforeCreate() {
+    if (!firebase.auth().currentUser) {
+      console.log('No Login')
+      this.$router.replace('/login')
+    } else {
+      console.log('Login ok')
+    }
   },
   methods: {
     getData() {

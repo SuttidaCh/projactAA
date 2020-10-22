@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <v-btn color="info" class="mr-4" @click="loginGoogle"> Google </v-btn>
     <div class="text-center">
       <h1>Login</h1>
       <br />
@@ -30,6 +29,9 @@
             <div class="col-">
               <v-btn color="#F4D03F" class="mr-4" @click="login">
                 Sign In
+              </v-btn>
+              <v-btn color="#F4D03F" class="mr-4" @click="loginGoogle">
+                Sign In With Google
               </v-btn>
             </div>
           </div>

@@ -17,58 +17,118 @@
         <v-btn color="#F4D03F" class="mr-4" @click="addData">Update</v-btn>
       </div>
     </v-form>
-    <br />
-    <v-data-table
-      :headers="dessertHeaders"
-      :items="textList"
-      :single-expand="singleExpand"
-      :expanded.sync="expanded"
-      item-key="name"
-      show-expand
-      class="elevation-1"
-    >
+    <v-data-table :headers="headers" :items="textList" class="elevation-1">
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Expandable Table</v-toolbar-title>
+          <v-toolbar-title>อัปเดตสถานะพัสดุ</v-toolbar-title>
+          <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <v-switch
-            v-model="singleExpand"
-            label="Single expand"
-            class="mt-2"
-          ></v-switch>
+          <v-dialog v-model="dialog" max-width="500px">
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.name"
+                        label="Status"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="close">
+                  Cancel
+                </v-btn>
+                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <v-dialog v-model="dialogDelete" max-width="500px">
+            <v-card>
+              <v-card-title class="headline"
+                >Are you sure you want to delete this item?</v-card-title
+              >
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDelete"
+                  >Cancel</v-btn
+                >
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                  >OK</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length">More info about {{ item.name }}</td>
+      <template v-slot:item.actions="{ item }">
+        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
     </v-data-table>
   </v-container>
 </template>
-
 <script>
 import { db } from '~/plugins/firebaseConfig.js'
 export default {
-  data() {
-    return {
-      expanded: [],
-      singleExpand: false,
-      dessertHeaders: [
-        { text: 'หมายเลขติดตามพัสดุ', value: 'tracking' },
-        { text: 'ชื่อ-สกุล', value: 'name' },
-        { text: 'วันที่รับ', value: 'date' },
-        { text: 'ที่อยู่', value: 'address' },
-        { text: 'อำเภอ', value: 'district' },
-        { text: 'จังหวัด', value: 'province' },
-        { text: 'รหัสไปรษณีย์', value: 'postcode' },
-        { text: 'สถานะ', value: 'status' },
-        { text: 'รวมเป็นเงิน', value: 'total' },
-      ],
-      textList: [],
-    }
+  data: () => ({
+    dialog: false,
+    dialogDelete: false,
+    headers: [
+      {
+        text: 'หมายเลขติดตามพัสดุ',
+        value: 'tracking',
+        align: 'start',
+        sortable: false,
+      },
+      { text: 'ชื่อ-สกุล', value: 'name' },
+      { text: 'วันที่รับ', value: 'date' },
+      { text: 'ที่อยู่', value: 'address' },
+      { text: 'อำเภอ', value: 'district' },
+      { text: 'จังหวัด', value: 'province' },
+      { text: 'รหัสไปรษณีย์', value: 'postcode' },
+      { text: 'ติดต่อ', value: 'phone' },
+      { text: 'สถานะ', value: 'status' },
+      { text: 'Actions', value: 'actions', sortable: false },
+    ],
+    textList: [],
+    editedIndex: -1,
+    editedItem: {
+      name: '',
+    },
+    defaultItem: {
+      name: '',
+    },
+  }),
+
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+    },
   },
+
+  watch: {
+    dialog(val) {
+      val || this.close()
+    },
+    dialogDelete(val) {
+      val || this.closeDelete()
+    },
+  },
+
   created() {
     this.getData()
   },
+
   methods: {
     getData() {
       db.collection('Customer')
@@ -82,7 +142,47 @@ export default {
         })
     },
   },
+
+  editItem(item) {
+    this.editedIndex = this.textList.indexOf(item)
+    this.editedItem = Object.assign({}, item)
+    this.dialog = true
+  },
+
+  deleteItem(item) {
+    this.editedIndex = this.textList.indexOf(item)
+    this.editedItem = Object.assign({}, item)
+    this.dialogDelete = true
+  },
+
+  deleteItemConfirm() {
+    this.textList.splice(this.editedIndex, 1)
+    this.closeDelete()
+  },
+
+  close() {
+    this.dialog = false
+    this.$nextTick(() => {
+      this.editedItem = Object.assign({}, this.defaultItem)
+      this.editedIndex = -1
+    })
+  },
+
+  closeDelete() {
+    this.dialogDelete = false
+    this.$nextTick(() => {
+      this.editedItem = Object.assign({}, this.defaultItem)
+      this.editedIndex = -1
+    })
+  },
+
+  save() {
+    if (this.editedIndex > -1) {
+      Object.assign(this.textList[this.editedIndex], this.editedItem)
+    } else {
+      this.textList.push(this.editedItem)
+    }
+    this.close()
+  },
 }
 </script>
-
-<style></style>

@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import firebase from 'firebase/app'
 import { db } from '~/plugins/firebaseConfig.js'
 export default {
   data() {
@@ -42,6 +43,13 @@ export default {
     this.getData()
   },
   methods: {
+    beforeCreate() {
+      if (!firebase.auth().currentUser) {
+        console.log('No Login')
+      } else {
+        console.log('Login ok')
+      }
+    },
     getData() {
       db.collection('Customer')
         .orderBy('timestamp')

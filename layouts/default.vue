@@ -72,8 +72,8 @@ export default {
           to: '/customer',
         },
         {
-          icon: 'mdi-account',
-          title: 'Customer List',
+          icon: 'mdi-account-edit',
+          title: 'Customer List Data',
           to: '/listdata',
         },
         {
@@ -82,19 +82,14 @@ export default {
           to: '/update',
         },
         {
-          icon: 'mdi-barcode-scan',
-          title: 'Update',
-          to: '/up',
+          icon: 'mdi-folder',
+          title: 'Summary report',
+          to: '/data',
         },
         {
           icon: 'mdi-comment',
           title: 'Contact Us',
           to: '/contact',
-        },
-        {
-          icon: 'mdi-comment',
-          title: 'Summary report',
-          to: '/data',
         },
       ],
       miniVariant: false,

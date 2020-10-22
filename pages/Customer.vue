@@ -52,6 +52,34 @@
           class="ma-3"
           required
         ></v-text-field>
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="date"
+              :rules="dateRules"
+              label="ปี/เดือน/วัน"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              class="ma-3"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            ref="picker"
+            v-model="date"
+            :max="new Date().toISOString().substr(0, 10)"
+            min="1950-01-01"
+            @change="save"
+          ></v-date-picker>
+        </v-menu>
       </div>
       <br />
       <div>ปลายทาง</div>
@@ -108,6 +136,7 @@
       </v-dialog>
       <v-btn color="#F4D03F" class="mr-4" @click="reset"> Reset Form </v-btn>
     </v-form>
+    <CollectionText />
   </v-container>
 </template>
 
@@ -137,23 +166,28 @@ export default {
         (v) =>
           (v && v.length <= 5) || 'Post code must be less than 5 characters',
       ],
+      date: '',
+      dateRules: [(v) => !!v || 'Date is required'],
+      menu: false,
       area: null,
-      sizebox: null,
+      sizebox: ['S', 'M', 'L', 'XL'],
       value: '',
       quantity: null,
       items: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
       dialog: false,
     }
   },
-  beforeCreate() {
-    if (!firebase.auth().currentUser) {
-      console.log('No Login')
-      this.$router.replace('/login')
-    } else {
-      console.log('Login ok')
-    }
-  },
   methods: {
+    beforeCreate() {
+      if (!firebase.auth().currentUser) {
+        console.log('No Login')
+      } else {
+        console.log('Login ok')
+      }
+    },
+    save(date) {
+      this.$refs.menu.save(date)
+    },
     getData() {
       db.collection('MyForm')
         .doc('formdata')
@@ -165,6 +199,7 @@ export default {
             this.phone = firebaseData.phone
             this.address = firebaseData.address
             this.postcode = firebaseData.postcode
+            this.date = firebaseData.date
             this.area = firebaseData.area
             this.sizebox = firebaseData.sizebox
             this.quantity = firebaseData.quantity
