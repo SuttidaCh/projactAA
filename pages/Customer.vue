@@ -84,8 +84,8 @@
       <br />
       <div>ปลายทาง</div>
       <v-radio-group v-model="area" row>
-        <v-radio :label="`กรุงเทพฯ`" :value="t1" required></v-radio>
-        <v-radio :label="`ต่างจังหวัด`" :value="t2" required></v-radio>
+        <v-radio :label="`กรุงเทพฯ`" required></v-radio>
+        <v-radio :label="`ต่างจังหวัด`" required></v-radio>
       </v-radio-group>
       <br />
       <v-row justify="space-between">
@@ -102,10 +102,10 @@
         <v-col cols="12" md="4">
           <div>ขนาดกล่อง</div>
           <v-radio-group v-model="sizebox" required row>
-            <v-radio :label="`S`" :value="S" required></v-radio>
-            <v-radio :label="`M`" :value="M" required></v-radio>
-            <v-radio :label="`L`" :value="L" required></v-radio>
-            <v-radio :label="`XL`" :value="XL" required></v-radio>
+            <v-radio :label="`S`" required></v-radio>
+            <v-radio :label="`M`" required></v-radio>
+            <v-radio :label="`L`" required></v-radio>
+            <v-radio :label="`XL`" required></v-radio>
           </v-radio-group>
         </v-col>
       </v-row>
@@ -136,7 +136,6 @@
       </v-dialog>
       <v-btn color="#F4D03F" class="mr-4" @click="reset"> Reset Form </v-btn>
     </v-form>
-    <CollectionText />
   </v-container>
 </template>
 
