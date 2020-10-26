@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      ข้อมูลลูกค้า
+      ข้อมูลผู้รับ
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -27,14 +27,10 @@ export default {
       search: '',
       headers: [
         { text: 'หมายเลขติดตามพัสดุ', value: 'tracking' },
-        { text: 'ชื่อ-สกุล', value: 'name' },
-        { text: 'วันที่รับ', value: 'date' },
-        { text: 'ที่อยู่', value: 'address' },
-        { text: 'อำเภอ', value: 'district' },
-        { text: 'จังหวัด', value: 'province' },
-        { text: 'รหัสไปรษณีย์', value: 'postcode' },
-        { text: 'สถานะ', value: 'status' },
-        { text: 'รวมเป็นเงิน', value: 'total' },
+        { text: 'ชื่อ-สกุล', value: 're_name' },
+        { text: 'วันที่ทำรายการ', value: 'date' },
+        { text: 'ที่อยู่', value: 're_address' },
+        { text: 'ตำบล/อำเภอ/จังหวัด/รหัสไปรษณีย์', value: 're_exstates' },
       ],
       textList: [],
     }
@@ -51,7 +47,7 @@ export default {
       }
     },
     getData() {
-      db.collection('Customer')
+      db.collection('Recipient')
         .orderBy('timestamp')
         .onSnapshot((querySnapshot) => {
           const data = []

@@ -10,9 +10,7 @@
       {{ item.name }}
       {{ item.phone }}
       {{ item.address }}
-      {{ item.district }}
-      {{ item.province }}
-      {{ item.postcode }}
+      {{ item.exstates }}
     </v-card>
   </v-card>
 </template>

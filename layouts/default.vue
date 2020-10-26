@@ -73,8 +73,13 @@ export default {
         },
         {
           icon: 'mdi-account-edit',
-          title: 'Customer List Data',
-          to: '/listdata',
+          title: 'Sender List',
+          to: '/listSender',
+        },
+        {
+          icon: 'mdi-account-edit',
+          title: 'Recipient List',
+          to: '/listRecipient',
         },
         {
           icon: 'mdi-barcode-scan',
