@@ -7676,6 +7676,8 @@ export default {
         re_name: this.re_name,
         re_phone: this.re_phone,
         re_exstates: this.re_exstates,
+        re_address: this.re_address,
+        date: this.date,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
       db.collection('Recipient')
@@ -7696,6 +7698,7 @@ export default {
         exstates: this.exstates,
         sizebox: this.sizebox,
         quantity: this.quantity,
+        date: this.date,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
       db.collection('Sender')

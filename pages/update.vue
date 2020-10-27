@@ -5,7 +5,7 @@
       <br />
       <div class="row md-5">
         <v-text-field
-          v-model="address"
+          v-model="eaddress"
           :rules="addressRules"
           label="Tracking Number/Scan QrCode"
           class="ma-3"
@@ -136,7 +136,7 @@ export default {
       }
     },
     getData() {
-      db.collection('Customer')
+      db.collection('Recipient')
         .orderBy('timestamp')
         .onSnapshot((querySnapshot) => {
           const data = []
