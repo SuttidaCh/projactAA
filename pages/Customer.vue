@@ -85,15 +85,6 @@
       <v-row>
         <v-col cols="12" md="4">
           <v-select
-            v-model="quantity"
-            :items="items"
-            :rules="[(v) => !!v || 'Item is required']"
-            label="จำนวนกล่อง"
-            required
-          ></v-select>
-        </v-col>
-        <v-col cols="12" md="4">
-          <v-select
             v-model="sizebox"
             :items="size"
             :rules="[(v) => !!v || 'Size is required']"
@@ -7631,10 +7622,9 @@ export default {
       sizebox: null,
       size: ['S', 'M', 'L', 'XL'],
       value: '',
-      quantity: null,
-      items: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
       dialog: false,
       track: '',
+      status: '',
     }
   },
   methods: {
@@ -7665,8 +7655,8 @@ export default {
             this.re_exstates = firebaseData.re_exstates
             this.date = firebaseData.date
             this.sizebox = firebaseData.sizebox
-            this.quantity = firebaseData.quantity
             this.track = firebaseData.track
+            this.status = firebaseData.status
           }
         })
     },
@@ -7682,6 +7672,7 @@ export default {
         re_address: this.re_address,
         date: this.date,
         track: this.track,
+        status: this.status,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
       db.collection('Recipient')
@@ -7701,9 +7692,9 @@ export default {
         address: this.address,
         exstates: this.exstates,
         sizebox: this.sizebox,
-        quantity: this.quantity,
         date: this.date,
         track: this.track,
+        status: this.status,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
       db.collection('Sender')

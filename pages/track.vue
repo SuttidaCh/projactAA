@@ -22,6 +22,7 @@
               color="#7B7D7D"
               v-bind="attrs"
               class="mr-2"
+              :search="search"
               @click="track"
               v-on="on"
             >
@@ -55,16 +56,6 @@
                   พัสดุถึงสาขาปลายทาง
                 </v-stepper-step>
                 <v-stepper-content step="1"> </v-stepper-content>
-
-                <v-stepper-content step="3">
-                  <v-card
-                    color="grey lighten-1"
-                    class="mb-12"
-                    height="200px"
-                  ></v-card>
-                  <v-btn color="primary" @click="e13 = 2"> Continue </v-btn>
-                  <v-btn text> Cancel </v-btn>
-                </v-stepper-content>
 
                 <v-stepper-step step="4"> พัสดุกำลังนำส่ง </v-stepper-step>
 

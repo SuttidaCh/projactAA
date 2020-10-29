@@ -12,7 +12,11 @@
       ></v-text-field>
     </v-card-title>
 
-    <v-data-table :headers="headers" :items="textList"> ></v-data-table>
+    <v-data-table
+      :headers="headers"
+      :items="textList"
+      :search="search"
+    ></v-data-table>
   </v-card>
 </template>
 
