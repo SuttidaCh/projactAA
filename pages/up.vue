@@ -136,11 +136,11 @@ export default {
     initialize() {
       this.desserts = [
         {
-          name: '',
-          calories: '',
-          fat: '',
-          carbs: '',
-          protein: '',
+          name: 'abc',
+          calories: '122',
+          fat: '20',
+          carbs: '45',
+          protein: '84',
         },
       ]
     },
