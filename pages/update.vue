@@ -102,29 +102,28 @@ export default {
           this.textList = data
         })
     },
-  },
+    editItem(item) {
+      this.editedIndex = this.textList.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
+    },
 
-  editItem(item) {
-    this.editedIndex = this.textList.indexOf(item)
-    this.editedItem = Object.assign({}, item)
-    this.dialog = true
-  },
+    close() {
+      this.dialog = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
 
-  close() {
-    this.dialog = false
-    this.$nextTick(() => {
-      this.editedItem = Object.assign({}, this.defaultItem)
-      this.editedIndex = -1
-    })
-  },
-
-  save() {
-    if (this.editedIndex > -1) {
-      Object.assign(this.textList[this.editedIndex], this.editedItem)
-    } else {
-      this.textList.push(this.editedItem)
-    }
-    this.close()
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.textList[this.editedIndex], this.editedItem)
+      } else {
+        this.textList.push(this.editedItem)
+      }
+      this.close()
+    },
   },
 }
 </script>
