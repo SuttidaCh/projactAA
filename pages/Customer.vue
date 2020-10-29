@@ -133,7 +133,7 @@
           </v-menu>
         </div>
       </v-row>
-
+      <div>{{ track }}</div>
       <br />
       <v-dialog v-model="dialog" persistent max-width="290">
         <template v-slot:activator="{ on, attrs }">
@@ -160,6 +160,7 @@
         </v-card>
       </v-dialog>
       <v-btn color="#F4D03F" class="mr-4" @click="reset"> Reset Form </v-btn>
+      <v-btn @click="Gennumber"> generate number </v-btn>
     </v-form>
   </v-container>
 </template>
@@ -7633,6 +7634,7 @@ export default {
       quantity: null,
       items: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
       dialog: false,
+      track: '',
     }
   },
   methods: {
@@ -7664,6 +7666,7 @@ export default {
             this.date = firebaseData.date
             this.sizebox = firebaseData.sizebox
             this.quantity = firebaseData.quantity
+            this.track = firebaseData.track
           }
         })
     },
@@ -7678,6 +7681,7 @@ export default {
         re_exstates: this.re_exstates,
         re_address: this.re_address,
         date: this.date,
+        track: this.track,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
       db.collection('Recipient')
@@ -7699,6 +7703,7 @@ export default {
         sizebox: this.sizebox,
         quantity: this.quantity,
         date: this.date,
+        track: this.track,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
       db.collection('Sender')
@@ -7713,6 +7718,10 @@ export default {
     },
     reset() {
       this.$refs.form.reset()
+    },
+    Gennumber() {
+      const track = 'TH' + Math.floor(Math.random() * 10000000000)
+      this.track = track
     },
   },
 }

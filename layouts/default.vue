@@ -89,7 +89,7 @@ export default {
         {
           icon: 'mdi-folder',
           title: 'Summary report',
-          to: '/data',
+          to: '/summary',
         },
         {
           icon: 'mdi-comment',

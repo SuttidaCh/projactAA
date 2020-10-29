@@ -12,7 +12,9 @@
       ></v-text-field>
     </v-card-title>
 
-    <v-data-table :headers="headers" :search="search"> ></v-data-table>
+    <v-data-table :headers="headers" :items="textList" :search="search">
+      ></v-data-table
+    >
   </v-card>
 </template>
 
@@ -45,7 +47,7 @@ export default {
       }
     },
     getData() {
-      db.collection('Customer')
+      db.collection('Sender')
         .orderBy('timestamp')
         .onSnapshot((querySnapshot) => {
           const data = []

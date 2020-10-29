@@ -26,12 +26,12 @@ export default {
     return {
       search: '',
       headers: [
-        { text: 'หมายเลขติดตามพัสดุ', value: 'tracking' },
+        { text: 'หมายเลขติดตามพัสดุ', value: 'track' },
         { text: 'ชื่อ-สกุล', value: 'name' },
         { text: 'ที่อยู่', value: 'address' },
         { text: 'ตำบล/อำเภอ/จังหวัด/รหัสไปรษณีย์', value: 'exstates' },
+        { text: 'ติดต่อ', value: 'phone' },
         { text: 'วันที่ทำรายการ', value: 'date' },
-        { text: 'สถานะ', value: 'status' },
         { text: 'รวมเป็นเงิน', value: 'total' },
       ],
       textList: [],
