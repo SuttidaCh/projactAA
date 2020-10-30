@@ -87,11 +87,6 @@ export default {
           to: '/update',
         },
         {
-          icon: 'mdi-barcode-scan',
-          title: 'Update Status',
-          to: '/up',
-        },
-        {
           icon: 'mdi-folder',
           title: 'Summary report',
           to: '/summary',

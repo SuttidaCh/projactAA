@@ -5,10 +5,10 @@
       <br />
       <div class="row md-5">
         <v-text-field
-          v-model="search"
-          :rules="searchRules"
+          v-model="track"
+          :rules="trackRules"
           append-icon="mdi-magnify"
-          label="Tracking Number"
+          label="Tracking Number --->  TH ตามด้วยเลข10หลัก"
           class="ma-3"
           solo
           required
@@ -23,7 +23,7 @@
               v-bind="attrs"
               class="mr-2"
               :search="search"
-              @click="track"
+              @click="search"
               v-on="on"
             >
               search
@@ -91,17 +91,18 @@ export default {
       valid: true,
       dialog: false,
       e13: 2,
-      search: '',
-      searchRules: [
+      track: '',
+      trackRules: [
         (v) => !!v || 'Tracking is required',
         (v) =>
-          (v && v.length <= 11) || 'Tracking must be less than 11 characters',
+          (v && v.length >= 12 && v.length <= 12) ||
+          'Tracking must be less than 12 characters',
       ],
     }
   },
   methods: {
-    Submit() {
-      this.$refs.form.Submit()
+    search() {
+      alert('ไม่พบข้อมูล')
     },
   },
 }

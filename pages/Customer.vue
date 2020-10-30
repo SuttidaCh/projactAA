@@ -125,7 +125,7 @@
         </div>
       </v-row>
       <div>{{ track }}</div>
-      <br />
+      <br /><v-btn @click="Gennumber"> generate number </v-btn>
       <v-dialog v-model="dialog" persistent max-width="290">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -151,7 +151,6 @@
         </v-card>
       </v-dialog>
       <v-btn color="#F4D03F" class="mr-4" @click="reset"> Reset Form </v-btn>
-      <v-btn @click="Gennumber"> generate number </v-btn>
     </v-form>
   </v-container>
 </template>
@@ -170,7 +169,9 @@ export default {
       re_phone: '',
       phoneRules: [
         (v) => !!v || 'Phone is required',
-        (v) => (v && v.length <= 10) || 'Phone must be less than 10 characters',
+        (v) =>
+          (v && v.length >= 10 && v.length <= 10) ||
+          'Phone must be less than 10 characters',
       ],
       address: '',
       re_address: '',
@@ -7624,7 +7625,7 @@ export default {
       value: '',
       dialog: false,
       track: '',
-      status: '',
+      status: 'พัสดุเข้าสู่ระบบ',
     }
   },
   methods: {
@@ -7676,12 +7677,12 @@ export default {
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
       db.collection('Recipient')
-        .doc()
+        .doc(this.track)
         .set(data)
-        .then(function () {
+        .then(() => {
           console.log('Document successfully written! -> Recipient')
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.error('Error writing document: ', error)
         })
 
@@ -7698,9 +7699,9 @@ export default {
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
       db.collection('Sender')
-        .doc()
+        .doc(this.track)
         .set(dataText)
-        .then(function () {
+        .then(() => {
           console.log('Document successfully written! -> Sender')
         })
     },
